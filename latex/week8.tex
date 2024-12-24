@@ -2,6 +2,7 @@
 
 % Theme choice (you can change this to your preferred theme)
 \usetheme{Madrid}
+\usepackage{bm}
 
 % Title page information
 \title[Equivariant Graph Neural Networks]{Equivariant Graph Neural Networks}
@@ -123,9 +124,22 @@ currentsubsection
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Construction of an Equivariant Neural Network}
 
-
-
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item When contructing an equivariant neural network, two things should always be considered:
+        \begin{enumerate}
+            \pause
+            \item The symmetries of the data:\\
+                What inherent structure should our model be oblivious to?
+            \pause
+            \item The space of functions learnable by the network:\\ 
+                Are we fully utilizing the space of functions that are equivariant 
+        \end{enumerate} 
+    \end{itemize}
+    
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Mathematical Backoground}
@@ -158,7 +172,7 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
         \pause
-        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is permutation invariant if $f(x) = f(\pi x)$ for all $\pi \in H$.
+        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is permutation invariant if $f(x) = f(\pi x)$ for all $\pi \in H$.
     \end{itemize}
     \begin{center}
         \pause
@@ -198,9 +212,9 @@ currentsubsection
         \pause
         \item We can represent $X$ as a matrix $X \in \mathbb{R}^{n \times d}$.
         \pause
-        \item Any permutation $\pi \in S_n$ can be represented as a permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$,
+        \item Any permutation $g \in S_n$ can be represented as a permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$,
         \pause
-        \item The action of $\pi$ on $X$ is then $P X$.
+        \item The action of $g$ on $X$ is then $P X$.
         \pause
         \item An invariant neural network is a function $f: \mathbb{R}^{n \times d} \rightarrow \mathbb{R}^{d`}$ such that $f(X) = f(\boldsymbol{P}X)$.
         \pause
@@ -212,30 +226,148 @@ currentsubsection
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Permutation of a Set}
+\begin{frame}{Permutation of a Graph}
 
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item Our data is now a graph signal $(A, X) \in \mathbb{R}^{n \times n} \times \mathbb{R}^{n \times d}$. 
+        \item Our data is now a graph adjacency matric $A \in \mathbb{R}^{n \times n}$. 
         \pause
         \item A permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$ acts on the adjacency matrix $A$ and the feature matrix $X$.
-        \pause
-        \item The action of $\boldsymbol{P}$ on $(A, X)$ is $(\boldsymbol{P^T}A\boldsymbol{P}, \boldsymbol{P}X)$.
     \end{itemize}
     
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}{Equivariant Network Construction}
 
+    \begin{theorem}
+        Let $L$ be a linear equivariant layer, and let $f$ be a neural network constructed be stacking $L$ and non-linearities $\sigma$. Then $f$ is permutation equivariant.
+    \end{theorem}
+    \pause
+    \begin{proof}
+        Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
+        \pause
+        \[ f(gx) = L(\sigma(L(\sigma(\ldots L(gx) \ldots)))) = L(\sigma(L( \ldots g\sigma(L(x)) \ldots))) = \ldots \]
+        \pause
+        \[ g L(\sigma(L(\sigma(\ldots L(x) \ldots)))) = gf(x) \]
+    \end{proof}
+    
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant Network Construction}
+    \begin{theorem}
+        Let $f$ be an equvariant neural network and let $\phi$ be a permutation invariant function. Then $h = \phi(f(x))$ is a permutation invariant neural network.
+    \end{theorem}
+    \pause
+    \begin{proof}
+        Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
+        \pause
+        \[ h(gx) = \phi(f(gx)) = \phi(gf(x)) = \phi(f(x)) = h(x) \]
+    \end{proof}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Invariant and Equivariant Construction}
+\section{Deep Sets}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Deep Sets}
 
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item A seminal work in the field of equivariant neural networks. 
+        \pause
+        \item Recall the two properties we mentioned earlier (symmetries of the data and the space of functions learnable by the network).
+        \pause
+        \item \emph{DeepSets} is an architecture that is equivariant to set permutations and is maximmally expressive in the space of permutation equivariant functions.
+        \pause
+        \item We are going to see the construction and prove it satisfies equivariance and expressiveness.
+    \end{itemize}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Layer}
 
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We saw a general structure of an invariant and equivariant network.
+        \item To fill in the details, we need to define the equivariant layer $L$ and the invariant function $\phi$.
+    \end{itemize}
 
+    \pause
+    \begin{definition}
+        Consider a set $x = \{x_1, x_2, \ldots, x_n\}$, where $x_i \in \mathbb{R}$.\\
+        A \emph{DeepSets} layer is defined as 
+        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\].
+    \end{definition}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Layer}
+
+    \begin{definition}
+        Consider a set $x = \{x_1, x_2, \ldots, x_n\}$, where $x_i \in \mathbb{R}$.\\
+        A \emph{DeepSets} layer is defined as 
+        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\].
+    \end{definition}
+
+    \pause
+    \begin{theorem}
+        A \emph{DeepSets} layer is permutation equivariant.
+    \end{theorem}
+
+    \pause
+    \begin{proof}
+        Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
+        \pause
+        \[ L(gx) = \lambda\mathrm{I}(gx) + (gx)\mathbf{1} = g(\lambda\mathrm{I}x) + x\mathbf{1} = gL(x)\]
+    \end{proof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Network}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We have an initial layer $L$, which we proved is equivariant.
+        \pause
+        \item A deep sets invariant network is now constructed as:\\
+        \[f(x) = \phi(L\sigma(L\sigma(\ldots L\sigma(L(x)) \ldots))) \quad \text{where} \quad \phi(x) = \sum_{i=1}^{n}x_i \]
+        \pause
+        \item It is easy to see that $\phi$ is permutation invariant, and thus $f$ is permutation invariant.
+        \item For a classification network, take some classification module $\rho$ (e.g. an MLP), and define the final network as:
+        \[ h(x) = \rho(f(x)) \]  
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Network}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item Notice that the network is only defined for sets with elements in $\mathbb{R}$.
+        \item We can extend this to a set $X\in\mathbb{R}^{n \times d}$ by defining $L$ as:
+        \[L(x) = \mathbf{X}W_1 + \mathbf{1}\mathbf{1}^T\mathbf{X}W_2\]
+        \item Ths keeps the general structure of the layer: a linear transformation of the distinct elements of the set summed with the mean of the set.  
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Expressivity}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We have shown that the \emph{DeepSets} network is permutation invariant.
+        \item We now want to show that it is maximally expressive in the space of permutation invariant functions.
+    \end{itemize}
+    \pause
+    \begin{theorem}
+        A \emph{DeepSets} network is maximally expressive in the space of permutation invariant functions.
+    \end{theorem}
+    \pause
+    \begin{proof}
+        \pause
+        H.W. (using standard results from approximation theory).
+    \end{proof}
+    
+
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion}
     \begin{itemize}
