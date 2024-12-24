@@ -69,12 +69,12 @@ currentsubsection
 \begin{itemize}
     \setlength{\itemsep}{\fill}
     \item Our neural networks can operate on data of many types.
-    \pause
+    %\pause
     \item We often work with images, text, audio, graphs and more.
-    \pause
+    %\pause
     \item These data types have different structures and qualities, and we would like to build architectures that best suit them.
     \end{itemize}
-    \pause
+    %\pause
     \begin{center}
         \includegraphics[width=0.5\textwidth]{../figures/equivariance.png}
     \end{center}
@@ -96,7 +96,7 @@ currentsubsection
 
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \pause
+        %\pause
         \item It is acceptable to assume that being invariant to the rotation of the cat is a good property for a classification network.
     \end{itemize}
 \end{frame}
@@ -130,10 +130,10 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item When contructing an equivariant neural network, two things should always be considered:
         \begin{enumerate}
-            \pause
+            %\pause
             \item The symmetries of the data:\\
                 What inherent structure should our model be oblivious to?
-            \pause
+            %\pause
             \item The space of functions learnable by the network:\\ 
                 Are we fully utilizing the space of functions that are equivariant 
         \end{enumerate} 
@@ -159,7 +159,7 @@ currentsubsection
         \item e.g. $x = (x_1, x_2, x_3)$, and $\pi = (1, 2, 3) \in S_3$ is the permutation that maps $1 \rightarrow 2$, $2 \rightarrow 3$ and $3 \rightarrow 1$.
         \item We denote the \textbf{action} of $\pi$ on $x$ as $\pi x = (x_3, x_1, x_2)$. 
     \end{itemize}
-    
+
     
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,11 +172,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
-        \pause
+        %\pause
         \item $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is \textit{permutation invariant} if $f(x) = f(\pi x)$ for all $\pi \in H$.
     \end{itemize}
     \begin{center}
-        \pause
+        %\pause
         \includegraphics[width=0.65\textwidth]{../figures/perm_in.png}
     \end{center}
     
@@ -191,11 +191,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
-        \pause
+        %\pause
         \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is \textit{permutation equivariant} if $\pi f(x) = f(\pi x)$ for all $\pi \in H$.
     \end{itemize}
     \begin{center}
-        \pause
+        %\pause
         \includegraphics[width=0.65\textwidth]{../figures/perm_eq.png}
     \end{center}
     
@@ -210,15 +210,15 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Assume our set is $X = \{x_1, x_2, \ldots, x_n\}$.
-        \pause
+        %\pause
         \item We can represent $X$ as a matrix $X \in \mathbb{R}^{n \times d}$.
-        \pause
+        %\pause
         \item Any permutation $g \in S_n$ can be represented as a permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$,
-        \pause
+        %\pause
         \item The action of $g$ on $X$ is then $P X$.
-        \pause
+        %\pause
         \item An invariant neural network is a function $f: \mathbb{R}^{n \times d} \rightarrow \mathbb{R}^{d`}$ such that $f(X) = f(\boldsymbol{P}X)$.
-        \pause
+        %\pause
         \item An equivariant neural network is a function $f: \mathbb{R}^{n \times d} \rightarrow \mathbb{R}^{n \times d`}$ such that $\boldsymbol{P}f(X) = f(\boldsymbol{P}X)$.
     \end{itemize}
     
@@ -232,8 +232,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Our data is now a graph adjacency matric $A \in \mathbb{R}^{n \times n}$. 
-        \pause
-        \item A permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$ acts on the adjacency matrix $A$ and the feature matrix $X$.
+        %\pause
+        \item A permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$ acts on the adjacency matrix $A$.
+        %\pause
+        \item The action of $\boldsymbol{P}$ on $A$ is:
+        \[ \boldsymbol{P^T}A\boldsymbol{P} \]
     \end{itemize}
     
 \end{frame}
@@ -244,12 +247,12 @@ currentsubsection
     \begin{theorem}
         Let $L$ be a linear equivariant layer, and let $f$ be a neural network constructed be stacking $L$ and non-linearities $\sigma$. Then $f$ is permutation equivariant.
     \end{theorem}
-    \pause
+    %\pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        \pause
+        %\pause
         \[ f(gx) = L(\sigma(L(\sigma(\ldots L(gx) \ldots)))) = L(\sigma(L( \ldots g\sigma(L(x)) \ldots))) = \ldots \]
-        \pause
+        %\pause
         \[ g L(\sigma(L(\sigma(\ldots L(x) \ldots)))) = gf(x) \]
     \end{proof}
     
@@ -261,10 +264,10 @@ currentsubsection
     \begin{theorem}
         Let $f$ be an equvariant neural network and let $\phi$ be a permutation invariant function. Then $h = \phi(f(x))$ is a permutation invariant neural network.
     \end{theorem}
-    \pause
+    %\pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        \pause
+        %\pause
         \[ h(gx) = \phi(f(gx)) = \phi(gf(x)) = \phi(f(x)) = h(x) \]
     \end{proof}
 \end{frame}
@@ -279,11 +282,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item A seminal work in the field of equivariant neural networks. 
-        \pause
+        %\pause
         \item Recall the two properties we mentioned earlier (symmetries of the data and the space of functions learnable by the network).
-        \pause
+        %\pause
         \item \emph{DeepSets} is an architecture that is equivariant to set permutations and is maximmally expressive in the space of permutation equivariant functions.
-        \pause
+        %\pause
         \item We are going to see the construction and prove it satisfies equivariance and expressiveness.
     \end{itemize}
     
@@ -297,7 +300,7 @@ currentsubsection
         \item To fill in the details, we need to define the equivariant layer $L$ and the invariant function $\phi$.
     \end{itemize}
 
-    \pause
+    %\pause
     \begin{definition}
         Consider a set $x = \{x_1, x_2, \ldots, x_n\}$, where $x_i \in \mathbb{R}$.\\
         A \emph{DeepSets} layer is defined as 
@@ -314,15 +317,15 @@ currentsubsection
         \[L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\].
     \end{definition}
 
-    \pause
+    %\pause
     \begin{theorem}
         A \emph{DeepSets} layer is permutation equivariant.
     \end{theorem}
 
-    \pause
+    %\pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        \pause
+        %\pause
         \[ L(gx) = \lambda\mathrm{I}(gx) + (gx)\mathbf{1} = g(\lambda\mathrm{I}x) + x\mathbf{1} = gL(x)\]
     \end{proof}
 \end{frame}
@@ -331,10 +334,10 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We have an initial layer $L$, which we proved is equivariant.
-        \pause
+        %\pause
         \item A deep sets invariant network is now constructed as:\\
         \[f(x) = \phi(L\sigma(L\sigma(\ldots L\sigma(L(x)) \ldots))) \quad \text{where} \quad \phi(x) = \sum_{i=1}^{n}x_i \]
-        \pause
+        %\pause
         \item It is easy to see that $\phi$ is permutation invariant, and thus $f$ is permutation invariant.
         \item For a classification network, take some classification module $\rho$ (e.g. an MLP), and define the final network as:
         \[ h(x) = \rho(f(x)) \]  
@@ -357,17 +360,71 @@ currentsubsection
         \item We have shown that the \emph{DeepSets} network is permutation invariant.
         \item We now want to show that it is maximally expressive in the space of permutation invariant functions.
     \end{itemize}
-    \pause
+    %\pause
     \begin{theorem}
         A \emph{DeepSets} network is maximally expressive in the space of permutation invariant functions.
     \end{theorem}
-    \pause
+    %\pause
     \begin{proof}
-        \pause
+        %\pause
         H.W. (using standard results from approximation theory).
     \end{proof}
     
 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Invariant and Equivariant Graph Networks}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We saw a simple, maximally expressive equivariant network for sets.
+        %\pause
+        \item We now want to extend this to graphs.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item Recall the action of the permutation matrix $\boldsymbol{P}$ on the adjacency matrix $A$ is:
+        \[\boldsymbol{P^T}A\boldsymbol{P}\]
+        %\pause
+        \item Lets use this to define a Linear invariant layer $L \in \mathbb{R}^{n \times n}$. We want to satisfy the following:
+        \[ L\boldsymbol{P^T}A\boldsymbol{P} = L(A) \]
+        %\pause
+        \item But working with bilinear forms is hard. We can define an equivalent condition by column stacking the adjacency matrix to get a vector, and then define a linear layer $L \in \mathbb{R}^{1 \times n^2}$.
+        \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) = L\text{vec}(A) \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We now introduce a crucial property of the kronecker product:
+        \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
+        %\pause
+        \item Using this, the previous condition can be written as:
+        \[ L(P^T\otimes P^T)\text{vec}(A) = L\text{vec}(A) \]
+        %\pause
+        \item For this condition to hold for all $A$, we need $L$ to satisfy:
+        \[ L(P^T\otimes P^T) = L \]
+        %\pause
+        \item transposing the equation, and with severe abuse of notation $(L^T = \text{vec(L)})$, we finally get:
+        \[ (P\otimes P)\text{vec}(L) = \text{vec}(L) \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $L$.
+        %\pause
+        \item Developing the condition for an equivariant layer is very similar:
+        \item 
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conclusion}
