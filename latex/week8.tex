@@ -359,17 +359,30 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item We have shown that the \emph{DeepSets} network is permutation invariant.
         \item We now want to show that it is maximally expressive in the space of permutation invariant functions.
+        \item We show outline for the proof, showing \emph{DeepSets} can separate any two sets that are not equal.
+
     \end{itemize}
     %\pause
     \begin{theorem}
-        A \emph{DeepSets} network is maximally expressive in the space of permutation invariant functions.
+        Let $x,y \in \mathbb{R}^{n \times d} \quad$ s.t $\quad x \neq gy \quad \forall g \in S_n$. Then there exists a \emph{DeepSets} network that separates $x$ and $y$, namely $F(x ; \theta) \neq F(y ; \theta)$. 
     \end{theorem}
-    %\pause
-    \begin{proof}
-        %\pause
-        H.W. (using standard results from approximation theory).
-    \end{proof}
     
+    
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Expressivity}
+    Proof outline:
+    \begin{enumerate}
+        \setlength{\itemsep}{\fill}
+        \item Consider distinct rows of $x, y$.
+        \item Construct input output pairs using standard basis elements (one hot encodings of the elements in the set).
+        \item In each layer $L(x) = \mathbf{X}W_1 + \mathbf{1}\mathbf{1}^T\mathbf{X}W_2$, set $W_2 = 0$, collapsing our network to a standard MLP.
+        \item According to a result of the universal approximation theorem, we can learn a one to one mapping between the input and output pairs.
+        \item Output for each set the sum of the output pairs.
+        \item For each set, we computed the  hitogram of its elements, which is a unique representation of the set.
+    \end{enumerate}
+
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
