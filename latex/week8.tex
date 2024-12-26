@@ -350,7 +350,7 @@ currentsubsection
         \item Notice that the network is only defined for sets with elements in $\mathbb{R}$.
         \item We can extend this to a set $X\in\mathbb{R}^{n \times d}$ by defining $L$ as:
         \[L(x) = \mathbf{X}W_1 + \mathbf{1}\mathbf{1}^T\mathbf{X}W_2\]
-        \item Ths keeps the general structure of the layer: a linear transformation of the distinct elements of the set summed with the mean of the set.  
+        \item This keeps the general structure of the layer: a linear transformation of the distinct elements of the set summed with the mean of the set.  
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -358,7 +358,9 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We have shown that the \emph{DeepSets} network is permutation invariant.
+        %\pause
         \item We now want to show that it is maximally expressive in the space of permutation invariant functions.
+        %\pause
         \item We show outline for the proof, showing \emph{DeepSets} can separate any two sets that are not equal.
 
     \end{itemize}
@@ -375,11 +377,16 @@ currentsubsection
     Proof outline:
     \begin{enumerate}
         \setlength{\itemsep}{\fill}
+        %\pause
         \item Consider distinct rows of $x, y$.
+        %\pause
         \item Construct input output pairs using standard basis elements (one hot encodings of the elements in the set).
         \item In each layer $L(x) = \mathbf{X}W_1 + \mathbf{1}\mathbf{1}^T\mathbf{X}W_2$, set $W_2 = 0$, collapsing our network to a standard MLP.
+        %\pause
         \item According to a result of the universal approximation theorem, we can learn a one to one mapping between the input and output pairs.
+        %\pause
         \item Output for each set the sum of the output pairs.
+        %\pause
         \item For each set, we computed the  hitogram of its elements, which is a unique representation of the set.
     \end{enumerate}
 
@@ -436,7 +443,23 @@ currentsubsection
         \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $L$.
         %\pause
         \item Developing the condition for an equivariant layer is very similar:
-        \item 
+        %\pause
+        \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T L\text{vec}(A) \boldsymbol{P}\]
+        %\pause
+        \item Using the kronecker product property, we get:
+        \[ L(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)L\text{vec}(A) \]
+        %\pause
+        \item This should hold for every $A$, so we get:
+        \[ L(P^T\otimes P^T) = (P^T\otimes P^T)L \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ premutation matrix, and its inverse is $(P\otimes P)$.
+        %\pause
+        \[ (P^T\otimes P^T)L(P^T\otimes P^T) = L \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
