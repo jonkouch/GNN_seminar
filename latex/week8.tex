@@ -337,14 +337,15 @@ currentsubsection
     \end{theorem}
 
     %\pause
+    \renewcommand{\qedsymbol}{}
     \begin{proof}[Proof (through example)]
-        Let $x={x_1,x_2,x_3}$ be a set, $W \in \mathbb{R}^{3 \times 3}$, and $L(x) = W\mathbf{x}$ such that $L$ is equivariant. W = $\begin{pmatrix}
+        Let $\mathbf{x}={x_1,x_2,x_3}$ be a set, $W \in \mathbb{R}^{3 \times 3}$, and $L(x) = W\mathbf{x}$ such that $L$ is equivariant, W = $\begin{pmatrix}
             a & b & c\\
             d & e & f\\
             g & h & i
         \end{pmatrix}$
         %\pause
-        Regard permutation $g=(2,3) \in S_3$. Note that $\left(W\begin{pmatrix}
+        Consider permutation $g=(2,3) \in S_3$. Note that $g\left(W\begin{pmatrix}
             x_1\\
             x_2\\
             x_3
@@ -354,15 +355,19 @@ currentsubsection
             x_2
         \end{pmatrix}\right)_1$ from equivariance.\\
     \end{proof}
+    \renewcommand{\qedsymbol}{\ensuremath{\square}} 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\emph{DeepSets} Layer}
+    \renewcommand{\qedsymbol}{} 
     \begin{proof}[Proof (through example) - continued]
-        $ax_1 + bx_2 + cx_3 = ax_1 + bx_3 + cx_2$. This should hold for any choice of $x_1,x_2,x_3$. $\Rightarrow b = c$. Similarly, $d=f, g=h$. \\
-        \pause
+        The previous equation can be written as:
+        \[ax_1 + bx_2 + cx_3 = ax_1 + bx_3 + cx_2\]
+        This should hold for any choice of $\mathbf{x}$ $\Rightarrow b = c$, $d=f, g=h$. \\
+        %\pause
         For the permutation $\sigma = (1,3,2)$: 
         {\small
-        \[ W \begin{pmatrix}
+        \[W(\sigma x) = W \begin{pmatrix}
             x_2 \\
             x_3 \\
             x_1
@@ -373,7 +378,7 @@ currentsubsection
             fx_2 + fx_3 + ix_1
         \end{pmatrix}\]
         \[
-        (1, 3, 2)W \begin{pmatrix}
+        \sigma W \begin{pmatrix}
             x_1 \\
             x_2 \\
             x_3
@@ -392,11 +397,19 @@ currentsubsection
         \end{pmatrix}
         \]
         }
-        Intuitively, looking at all possible permutations, we can see why all values in the diagonal must be equal and all values in the off-diagonal must be equal. That means $W = \begin{pmatrix}
+    \end{proof}
+    \renewcommand{\qedsymbol}{\ensuremath{\square}} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\emph{DeepSets} Layer}
+    \begin{proof}[Proof (through example) - continued]
+        We can use the same logic to show that $a = e = i$, $b = c = d = f = g = h = i$\\
+        We get that all values in the diagonal must be equal and all values in the off-diagonal must be equal, and $W$ must have the form:
+        \[W = \begin{pmatrix}
             a & b & b\\
             b & a & b\\
             b & b & a
-        \end{pmatrix}$.
+        \end{pmatrix}\].
     \end{proof}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -482,11 +495,13 @@ currentsubsection
         \item Recall the action of the permutation matrix $\boldsymbol{P}$ on the adjacency matrix $A$ is:
         \[\boldsymbol{P^T}A\boldsymbol{P}\]
         %\pause
-        \item Lets use this to define a Linear invariant layer $L \in \mathbb{R}^{n \times n}$. We want to satisfy the following:
+        \item Lets use this to define a Linear invariant layer $L \in \mathbb{R}^{1 \times n^2}$. We want to satisfy the following:
         \[ L\boldsymbol{P^T}A\boldsymbol{P} = L(A) \]
         %\pause
         \item But working with bilinear forms is hard. We can define an equivalent condition by column stacking the adjacency matrix to get a vector, and then define a linear layer $L \in \mathbb{R}^{1 \times n^2}$.
         \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) = L\text{vec}(A) \]
+        %\pause
+        \item To be clear, $L$ is a layer which takes a vector of size $n^2$ and outputs a scalar.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -512,7 +527,7 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $L$.
         %\pause
-        \item Developing the condition for an equivariant layer is very similar:
+        \item Developing the condition for an equivariant layer $L \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
         %\pause
         \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T L\text{vec}(A) \boldsymbol{P}\]
         %\pause
@@ -530,9 +545,52 @@ currentsubsection
         \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ premutation matrix, and its inverse is $(P\otimes P)$.
         %\pause
         \[ (P\otimes P)L(P^T\otimes P^T) = L \]
-        \item Once again converting to a vector form, we get:
+        \item Once again using the Kronecker product property, we get:
         \[ \text{vec}(L) = \text{vec}(P\otimes P)L(P^T\otimes P^T) = (P\otimes P) \otimes (P \otimes P) \text{vec}(L) \]
         \[ = (P \otimes P \otimes P \otimes P) \text{vec}(L) \]
+        %\pause
+        \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
+        \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
+        \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
+        \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
+        \item for equivariant layers $L \in \mathbb{R}^{n^k \times n^k}$:
+        \[ P^{\otimes 2k}L = \text{vec}(L) \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We developed conditions for a permutation invariant and equivariant linear layer $L$. Call these the Fixed Point Equations.
+        %\pause
+        \item Unfortunately, compared to the simple structure of the \emph{DeepSets} layer, these equations are less intepretable. Let's try and make some sense of them.
+        %\pause
+        \item The condition we got is one that determines the values of the entries of $L$. We want to understand what entries of $L$ should be equal.
+        %\pause
+        \item For an invaratiant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item The Fixed Point Equation for an invariant layer is:
+        \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
+        %\pause
+        \item The k-th permutation matrix premutes the k-th dimension of the input. 
+        \[ P^{\otimes k}\text{vec}(L)_{i_1, \cdots i_k} = \text{vec}(L){\sigma(i)_1, \cdots \sigma(i)_k} \]
+        %\pause
+        \item This partitions the entries of $L$ into equivalence classes, where all entries in the same class are equal.
+        %\pause
+        \item For $k=2$ we get 2 equivalence classes:
+        \[ L_{i,j} \quad \text{where} \quad i \neq j \quad \text{and} \quad L_{i,i} \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item 
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
