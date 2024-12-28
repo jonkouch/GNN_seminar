@@ -578,7 +578,7 @@ currentsubsection
         \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
         %\pause
         \item The k-th permutation matrix premutes the k-th dimension of the input. 
-        \[ P^{\otimes k}\text{vec}(L)_{i_1, \cdots i_k} = \text{vec}(L){\sigma(i)_1, \cdots \sigma(i)_k} \]
+        \[ P^{\otimes k}\text{vec}(L)_{i_1, \ldots i_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k} \]
         %\pause
         \item This partitions the entries of $L$ into equivalence classes, where all entries in the same class are equal.
         %\pause
@@ -590,13 +590,63 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item 
+        \item For an equivariant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$ 
+        and sends it to entry ${j_1,j_2,\ldots,j_k}$ of the output.
+        %\pause
+        \item The Fixed Point Equation for an equivariant layer is:
+        \[ P^{\otimes 2k}\text{vec}(L) = \text{vec}(L) \]
+        %\pause
+        \item The k-th permutation matrix premutes the k-th dimension of the input. 
+        \[ P^{\otimes 2k}\text{vec}(L)_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k, \sigma(j)_1, \ldots \sigma(j)_k} \]
+        %\pause
+        \item Once again, this partitions the entries of $L$ into equivalence classes.
+        %\pause
+        \item For $k=2$ we get 15 equivalence classes:
+        \[ \{\{1\} \{2\} \{3\} \{4\}\}, \{\{1, 2\} \{3\} \{4\}\}, \{\{1\} \{2, 3\} \{4\}\} \ldots \{\{1, 2, 3, 4\}\}\]
+        %\pause
+        In general, the number of equivalence classes is $Bell((2)k)$ for an (equivariant) invariant layer of order $k$
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion}
+\begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
-        \item end
+        \setlength{\itemsep}{\fill}
+        \item Did you notice somthing similar to the \emph{DeepSets} layer?
+        %\pause
+        \item The construction of the \emph{DeepSets} layer is identicle to the construction of an equivariant layer of order 1.
+        %\pause
+        \item We managed to generalize the equivariant layer to higher orders of node connectivity.
+        %\pause
+        \item We also managed to generalize the invariant layer to higher orders of node connectivity.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{center}
+        \begin{minipage}[t]{0.45\textwidth}
+            \raggedright % Ensures the content aligns to the left
+            \vspace{0pt} % Forces top alignment
+            \includegraphics[width=\textwidth]{../figures/1-tensor-inv.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.45\textwidth}
+            \raggedright % Ensures the content aligns to the left
+            \vspace{0pt} % Forces top alignment
+            \includegraphics[width=\textwidth]{../figures/1-tensor-eq.png}
+        \end{minipage}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{../figures/2-tensor-eq.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item 
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
