@@ -646,13 +646,120 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item 
+        \item Let's extend the construction of the equivariant layer even further, changing between the connectivity order, adding node features, and a bias term.
+        %\pause
+        \item We skip a few steps, but it makes sense that the bias term should satisfy the same fixed point equation as the linear term.
+        \[ \mathbf{P}^{T \otimes k} \text{vec}(\mathbf{C}) = \text{vec}(\mathbf{C}) \]
+        The main idea is that every pair of k-hyperedges which permute under some permutation should have the same bias term.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We can also consider node features.
+        %\pause
+        \item The input to the layer now includes a set of $n$ $d$-dimensional vectors.
+        %\pause
+        \item This is exactly the input to the \emph{DeepSets} layer, we already know how to construct an equivariant layer for this input.
+        %\pause
+        \item The input to our layer is now the k-connectivity of each node, concatenated with it's feature:
+        \[ A \in \mathbb{R}^{n^k \times d} \]
+        %\pause
+        \item The new general formulation, changing both the connectivity order and the feature dimensionality, is:
+        \[ L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^{k'} \times d'} \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item We intoduce some new notation, please bare with us as we will use some Nifnufey Yadaim.
+        %\pause
+        \item We saw certain entries of the layer matrix $L$ are equal.
+        In \emph{DeepSets} our connectivity is of order 1, so we got 2 equivalence classes.
+        In the standard graph case, our connectivity is of order 2, so we got 15 equivalence classes.
+        \item These equivalence classes are completely disjoint, meaning every entry in the linear layer belongs to exactly one equivalence class.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item Let $\mu$ be some equivalence class of indices. We denote by $\mathbf{M}^\mathbf{\mu}$ the binary tensor which is 1 at the indices in $\mathbf{\mu}$ and 0 elsewhere.
+        %\pause
+        \item Denote by $\mathbf{B}^\mathbf{\mu}, \mathbf{C}^\mathbf{\mu}$ the linear layer and bias term of the layer, respectively. 
+        %\pause
+        \item For an invariant layer $L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^1 \times d'}$, this defines a set of $dd'Bell(k) + d'$ binary tensors.
+        %\pause
+        \item For an equivariant layer $L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^{k'} \times d'}$, this defines a set of $dd'Bell(k+k') + d'Bell(k')$ binary tensors.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    The full charactarization of the space of invariant and equivariant layers is:
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{../figures/layer_gener.png}
+    \end{center}
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{../figures/full_formulation.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item Turns out the set of these binary tensors $\mathbf{B}^\mathbf{\mu}$ is an orthogonal basis for the space of equivariant linear layers $L: \mathbb{R}^{n^k} \rightarrow \mathbb{R}^{n^{k'}}$
+        %\pause
+        \item We won't show this, but we can prove the space of invariant/equivariant layers is of dimension $Bell(k')/Bell(k + k')$.
+        \item The proof idea is showing the set of linear transformations is orthogonal and of the same dimension as the space of functions, making it a full basis.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item To recap what we saw so far:
+        %\pause
+        \item We saw the full construction linear layers which operate on graphs of a general degree of connectivity.
+        %\pause
+        \item Our construction supports changing between different levels of connectivity, adding node features and changing between the dimension of these features.
+        %\pause
+        \item The construction is also extreamly efficient. It is linear in the number of dimensions and does no depend on the number of nodes, only on the connectivity order.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}    
+        \item We now need to prove the two properties of the network: equivariance and expressiveness.
+        %\pause
+        \item Wait a minute, do we really need to prove these properties?
+        
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item Equivariance is a direct result of the construction of the layer. The layer is constructed to satisfy the Fixed Point Equation, which is the condition for equivariance.
+        %\pause
+        \item Expressiveness is also a direct result of the construction of the layer. The layer is constructed to be a full basis for the space of equivariant functions.
+        %\pause
+        \item Just like \emph{DeepSets}, we can now construct a network which is both equivariant and maximally expressive in the space of equivariant functions.
+        %\pause
+        \item Our layers are efficient, expressive, and constrained to the space of equivariant functions.
+        \item This allows for very efficient learning, and should also result in great generalization. The key here is a strong inductive bias.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    As researchers, we should present results that suit us, not those which make us look bad (these GPUs are not going to pay for themselves).
+    \begin{center}
+        \includegraphics[width=0.98\textwidth]{../figures/synth.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Thank You Slide
 \begin{frame}[plain]
     \centering
