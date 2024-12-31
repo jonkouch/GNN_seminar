@@ -349,7 +349,7 @@ currentsubsection
     %\pause
     \renewcommand{\qedsymbol}{}
     \begin{proof}[Proof (through example)]
-        Let $\mathbf{x}={x_1,x_2,x_3}$ be a set, $W \in \mathbb{R}^{3 \times 3}$, and $L(x) = W\mathbf{x}$ such that $L$ is equivariant, W = $\begin{pmatrix}
+        Let $\mathbf{x}=\{x_1,x_2,x_3\}$ be a set, $W \in \mathbb{R}^{3 \times 3}$, and $L(x) = W\mathbf{x}$ such that $L$ is equivariant, W = $\begin{pmatrix}
             a & b & c\\
             d & e & f\\
             g & h & i
@@ -416,7 +416,7 @@ currentsubsection
 
 \begin{frame}{\emph{DeepSets} Layer}
     \begin{proof}[Proof (through example) - continued]
-        We can use the same logic to show that $a = e = i$, $b = c = d = f = g = h = i$\\
+        We can use the same logic to show that $a = e = i$, $b = c = d = f = g = h$.\\
         We get that all values in the diagonal must be equal and all values in the off-diagonal must be equal, and $W$ must have the form:
         \[W = \begin{pmatrix}
             a & b & b\\
@@ -521,6 +521,16 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
+        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
+        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
+        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(A)\) to hold for any $A$.
+        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
         \item We now introduce a crucial property of the Kronecker product:
         \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
         %\pause
@@ -576,7 +586,7 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item We developed conditions for a permutation invariant and equivariant linear layer $L$. Call these the Fixed Point Equations.
         %\pause
-        \item Unfortunately, compared to the simple structure of the \emph{DeepSets} layer, these equations are less intepretable. Let's try and make some sense of them.
+        \item Unfortunately, compared to the simple structure of the \emph{DeepSets} layer, these equations are less interpretable. Let's try and make some sense of them.
         %\pause
         \item The condition we got is one that determines the values of the entries of $L$. We want to understand what entries of $L$ should be equal.
         %\pause
@@ -617,7 +627,7 @@ currentsubsection
         \item For $k=2$ we get 15 equivalence classes:
         \[ \{\{1\} \{2\} \{3\} \{4\}\}, \{\{1, 2\} \{3\} \{4\}\}, \{\{1\} \{2, 3\} \{4\}\} \ldots \{\{1, 2, 3, 4\}\}\]
         %\pause
-        In general, the number of equivalence classes is $Bell((2)k)$ for an (equivariant) invariant layer of order $k$
+        In general, the number of equivalence classes is $Bell(2k)$ for an (equivariant) invariant layer of order $k$
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
