@@ -129,18 +129,18 @@ currentsubsection
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Construction of an Equivariant Neural Network}
-
-    \begin{itemize}
+    When contructing an equivariant neural network, two things should always be considered:
+    \begin{itemize} 
         \setlength{\itemsep}{\fill}
-        \item When contructing an equivariant neural network, two things should always be considered:
-        \begin{enumerate}
             %\pause
-            \item The symmetries of the data:\\
-                What inherent structure should our model be oblivious to?
-            %\pause
-            \item The space of functions learnable by the network:\\ 
-                Are we fully utilizing the space of functions that are equivariant 
-        \end{enumerate} 
+        \item The symmetries of the data:
+        \begin{itemize}
+            \item What inherent structure should our model be oblivious to?
+        \end{itemize}
+        \item The space of functions learnable by the network:\\ 
+        \begin{itemize}
+            \item Are we fully utilizing the space of functions that are equivariant to the symmetries of the data?
+        \end{itemize}
     \end{itemize}
     
 \end{frame}
@@ -765,13 +765,8 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item Equivariance is a direct result of the construction of the layer. The layer is constructed to satisfy the Fixed Point Equation, which is the condition for equivariance.
-        %\pause
-        \item Expressiveness is also a direct result of the construction of the layer. The layer is constructed to be a full basis for the space of equivariant functions.
-        %\pause
-        \item Just like \emph{DeepSets}, we can now construct a network which is both equivariant and maximally expressive in the space of equivariant functions.
-        %\pause
-        \item Our layers are efficient, expressive, and constrained to the space of equivariant functions.
+        \item Equivariance is a direct result of the construction of the layer. The layer is constructed to satisfy the Fixed Point Equation, which is the condition for equivariance. \pause
+        \item The layer is constructed to be a full basis for the space of \textit{linear} equivariant functions. Hence the network can express all linear equivariant functions. \textit{Is this true also for nonlinear equivariant functions?} \pause    
         \item This allows for very efficient learning, and should also result in great generalization. The key here is a strong inductive bias.
     \end{itemize}
 \end{frame}
@@ -787,7 +782,7 @@ currentsubsection
     \begin{itemize}
         \item In previous lectures, we saw that a popular way to measure the expressivity of a GNN is by looking at the Weisfeiler-Lehman (WL) test.
         \pause
-        \item The WL test is a graph isomorphism test that is known to be able to distinguish between non-isomorphic graphs.
+        \item The $k$-WL tests are a family of graph isomorphism tests that can distinguish between increasingly many non-isomorphic graphs.
         \item We want to show that for some $k$, our $k$-order networks can distinguish between non-isomorphic graphs just as well as the $k$-WL test.
     \end{itemize}
 \end{frame}
@@ -795,8 +790,17 @@ currentsubsection
 \begin{frame}{Expressive Power of Equivariant Networks}
     \begin{itemize}
         \item In Maron et al. (2019), the authors show that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test.
-        \pause
         \item The model proposed is much more efficient than $k$-GNNs which are also equivalent to the $k$-WL test.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expressive Power of Equivariant Networks}
+    \begin{itemize}
+        \item The proof that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test is quite complex.
+        \item \pause
+        \item In general, we can "simulate" the $k-1$-(F)WL algorithm using a $k$-order equivariant network if we have a sufficient number of parameters.
+        \item \pause
+        \item The information required to run the $k-1$-(F)WL algorithm is encoded in the input to the network.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
