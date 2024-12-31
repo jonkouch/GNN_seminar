@@ -1,8 +1,12 @@
 \documentclass{beamer}
 
 % Theme choice (you can change this to your preferred theme)
-\usetheme{Madrid}
+
 \usepackage{bm}
+
+%\usetheme{Madrid}
+\usetheme{Frankfurt}
+\usecolortheme{rose}
 
 % Title page information
 \title[Equivariant Graph Neural Networks]{Equivariant Graph Neural Networks}
@@ -349,7 +353,7 @@ currentsubsection
             a & b & c\\
             d & e & f\\
             g & h & i
-        \end{pmatrix}$
+        \end{pmatrix}$.\\
         %\pause
         Consider permutation $g=(2,3) \in S_3$. Note that $g\left(W\begin{pmatrix}
             x_1\\
@@ -359,7 +363,7 @@ currentsubsection
             x_1\\
             x_3\\
             x_2
-        \end{pmatrix}\right)_1$ from equivariance.\\
+        \end{pmatrix}\right)_1$\\
     \end{proof}
     \renewcommand{\qedsymbol}{\ensuremath{\square}} 
 \end{frame}
@@ -367,12 +371,13 @@ currentsubsection
 \begin{frame}{\emph{DeepSets} Layer}
     \renewcommand{\qedsymbol}{} 
     \begin{proof}[Proof (through example) - continued]
+        {\footnotesize
         The previous equation can be written as:
         \[ax_1 + bx_2 + cx_3 = ax_1 + bx_3 + cx_2\]
         This should hold for any choice of $\mathbf{x}$ $\Rightarrow b = c$, $d=f, g=h$. \\
         %\pause
-        For the permutation $\sigma = (1,3,2)$: 
-        {\small
+        For the permutation $\sigma = (1,3,2)$:  
+        
         \[W(\sigma x) = W \begin{pmatrix}
             x_2 \\
             x_3 \\
@@ -396,7 +401,8 @@ currentsubsection
             dx_1 + ex_2 + dx_3 \\
             fx_1 + fx_2 + ix_3 \\
             ax_1 + bx_2 + bx_3
-        \end{pmatrix} \stackrel{!}{=} W \begin{pmatrix}
+        \end{pmatrix} \stackrel{!}{=} \] \\
+        \[ = W \begin{pmatrix}
             x_2 \\
             x_3 \\
             x_1
@@ -407,6 +413,7 @@ currentsubsection
     \renewcommand{\qedsymbol}{\ensuremath{\square}} 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{\emph{DeepSets} Layer}
     \begin{proof}[Proof (through example) - continued]
         We can use the same logic to show that $a = e = i$, $b = c = d = f = g = h = i$\\
