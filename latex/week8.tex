@@ -173,7 +173,7 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
         %\pause
-        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is \textit{permutation invariant} if $f(x) = f(\pi x)$ for all $\pi \in H$.
+        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is $H$-\textit{invariant} if $f(x) = f(\pi x)$ for all $\pi \in H$.
     \end{itemize}
     \begin{center}
         %\pause
@@ -501,13 +501,13 @@ currentsubsection
         \item Recall the action of the permutation matrix $\boldsymbol{P}$ on the adjacency matrix $A$ is:
         \[\boldsymbol{P^T}A\boldsymbol{P}\]
         %\pause
-        \item Lets use this to define a Linear invariant layer $L \in \mathbb{R}^{1 \times n^2}$. We want to satisfy the following:
-        \[ L\boldsymbol{P^T}A\boldsymbol{P} = L(A) \]
+        \item Let's use this to define a linear invariant layer $L \in \text{Hom}(\mathbb{R}^{n\times n}, \mathbb{R})$. We want to satisfy the following:
+        \[ L(\boldsymbol{P^T}A\boldsymbol{P}) = L(A) \]
+        \item It's hard from this to understand the conditions on $L$. 
+        \pause
+        \item We define an equivalent condition by column stacking the adjacency matrix to get a vector, and then looking at $L$'s matrix representation: $\mathbf{L} \in \mathbb{R}^{1 \times n^2}$.
+        \[ \mathbf{L}\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) = \mathbf{L}\text{vec}(A) \]
         %\pause
-        \item But working with bilinear forms is hard. We can define an equivalent condition by column stacking the adjacency matrix to get a vector, and then define a linear layer $L \in \mathbb{R}^{1 \times n^2}$.
-        \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) = L\text{vec}(A) \]
-        %\pause
-        \item To be clear, $L$ is a layer which takes a vector of size $n^2$ and outputs a scalar.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -548,7 +548,7 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ premutation matrix, and its inverse is $(P\otimes P)$.
+        \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ permutation matrix, and its inverse is $(P\otimes P)$.
         %\pause
         \[ (P\otimes P)L(P^T\otimes P^T) = L \]
         \item Once again using the Kronecker product property, we get:
@@ -573,7 +573,7 @@ currentsubsection
         %\pause
         \item The condition we got is one that determines the values of the entries of $L$. We want to understand what entries of $L$ should be equal.
         %\pause
-        \item For an invaratiant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$.
+        \item For an invariant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -583,7 +583,7 @@ currentsubsection
         \item The Fixed Point Equation for an invariant layer is:
         \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
         %\pause
-        \item The k-th permutation matrix premutes the k-th dimension of the input. 
+        \item The k-th permutation matrix permutes the k-th dimension of the input. 
         \[ P^{\otimes k}\text{vec}(L)_{i_1, \ldots i_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k} \]
         %\pause
         \item This partitions the entries of $L$ into equivalence classes, where all entries in the same class are equal.
@@ -602,7 +602,7 @@ currentsubsection
         \item The Fixed Point Equation for an equivariant layer is:
         \[ P^{\otimes 2k}\text{vec}(L) = \text{vec}(L) \]
         %\pause
-        \item The k-th permutation matrix premutes the k-th dimension of the input. 
+        \item The k-th permutation matrix permutes the k-th dimension of the input. 
         \[ P^{\otimes 2k}\text{vec}(L)_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k, \sigma(j)_1, \ldots \sigma(j)_k} \]
         %\pause
         \item Once again, this partitions the entries of $L$ into equivalence classes.
@@ -764,6 +764,23 @@ currentsubsection
     \begin{center}
         \includegraphics[width=0.98\textwidth]{../figures/synth.png}
     \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expressive Power of Equivariant Networks}
+    \begin{itemize}
+        \item In previous lectures, we saw that a popular way to measure the expressivity of a GNN is by looking at the Weisfeiler-Lehman (WL) test.
+        \pause
+        \item The WL test is a graph isomorphism test that is known to be able to distinguish between non-isomorphic graphs.
+        \item We want to show that for some $k$, our $k$-order networks can distinguish between non-isomorphic graphs just as well as the $k$-WL test.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expressive Power of Equivariant Networks}
+    \begin{itemize}
+        \item In Maron et al. (2019), the authors show that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test.
+        \pause
+        \item The model proposed is much more efficient than $k$-GNNs which are also equivalent to the $k$-WL test.
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Thank You Slide
