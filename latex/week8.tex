@@ -525,40 +525,30 @@ currentsubsection
         \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
         %\pause
         \item Using this, the previous condition can be written as:
-        \[ L(P^T\otimes P^T)\text{vec}(A) = L\text{vec}(A) \]
+        \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = \mathbf{L}\text{vec}(A) \]
         %\pause
-        \item For this condition to hold for all $A$, we need $L$ to satisfy:
-        \[ L(P^T\otimes P^T) = L \]
+        \item For this condition to hold for all $A$, we need $\mathbf{L}$ to satisfy:
+        \[ \mathbf{L}(P^T\otimes P^T) = \mathbf{L} \]
         %\pause
-        \item transposing the equation, and with severe abuse of notation $(L^T = \text{vec(L)})$, we finally get:
-        \[ (P\otimes P)\text{vec}(L) = \text{vec}(L) \]
+        \item transposing the equation, and with severe abuse of notation $(\mathbf{L}^T = \text{vec}(\mathbf{L}))$, we finally get:
+        \[ (P\otimes P)\text{vec}(\mathbf{L}) = \text{vec}(\mathbf{L}) \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $L$.
+        \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $\mathbf{L}$.
         %\pause
-        \item Developing the condition for an equivariant layer $L \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
+        \item Developing the condition for an equivariant layer $\mathbf{L} \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
         %\pause
-        \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T L\text{vec}(A) \boldsymbol{P}\]
+        \[ \mathbf{L}\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T \mathbf{L}\text{vec}(A) \boldsymbol{P}\]
         %\pause
         \item Using the Kronecker product property, we get:
-        \[ L(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)L\text{vec}(A) \]
+        \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)\mathbf{L}\text{vec}(A) \]
         %\pause
         \item This should hold for every $A$, so we get:
-        \[ L(P^T\otimes P^T) = (P^T\otimes P^T)L \]
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Invariant and Equivariant Graph Networks}
-    \begin{itemize}
-        \setlength{\itemsep}{\fill}
-        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
-        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
-        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(A)\) to hold for any $A$.
-        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
+        \[ \mathbf{L}(P^T\otimes P^T) = (P^T\otimes P^T)\mathbf{L} \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -567,17 +557,32 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ permutation matrix, and its inverse is $(P\otimes P)$.
         %\pause
-        \[ (P\otimes P)L(P^T\otimes P^T) = L \]
+        \[ (P\otimes P)L(P^T\otimes P^T) = \mathbf{L} \]
         \item Once again using the Kronecker product property, we get:
-        \[ \text{vec}(L) = \text{vec}(P\otimes P)L(P^T\otimes P^T) = (P\otimes P) \otimes (P \otimes P) \text{vec}(L) \]
-        \[ = (P \otimes P \otimes P \otimes P) \text{vec}(L) \]
+        \[ \text{vec}(\mathbf{L}) = \text{vec}\left((P\otimes P)\mathbf{L}(P^T\otimes P^T)\right) = (P\otimes P) \otimes (P \otimes P) \text{vec}(\mathbf{L}) \]
+        \[ = (P \otimes P \otimes P \otimes P) \text{vec}(\mathbf{L}) \]
         %\pause
-        \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
-        \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
-        \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
-        \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
-        \item for equivariant layers $L \in \mathbb{R}^{n^k \times n^k}$:
-        \[ P^{\otimes 2k}L = \text{vec}(L) \]
+        % \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
+        % \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
+        % \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
+        
+        % \item for equivariant layers $L \in \mathbb{R}^{n^k \times n^k}$:
+        
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
+        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
+        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(\mathbf{A})\) to hold for any $A$.
+        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
+        \item We can extend the previous result to
+        \begin{enumerate}
+            \item For invariant layers: \[ P^{\otimes k}\text{vec}(\mathbf{L}) = \text{vec}(\mathbf{L}) \]
+            \item For equivariant layers: \[ P^{\otimes 2k}\text{vec}\mathbf{L} = \text{vec}(\mathbf{L}) \]
+        \end{enumerate}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -787,6 +792,8 @@ currentsubsection
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Provably Powerful GNNs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Expressive Power of Equivariant Networks}
     \begin{itemize}
         \item In Maron et al. (2019), the authors show that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test.
@@ -797,10 +804,66 @@ currentsubsection
 \begin{frame}{Expressive Power of Equivariant Networks}
     \begin{itemize}
         \item The proof that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test is quite complex.
-        \item \pause
-        \item In general, we can "simulate" the $k-1$-(F)WL algorithm using a $k$-order equivariant network if we have a sufficient number of parameters.
-        \item \pause
-        \item The information required to run the $k-1$-(F)WL algorithm is encoded in the input to the network.
+        \pause
+        \item In general, we can "simulate" the $(k-1)$-FWL algorithm using a $k$-order equivariant network if we have a sufficient number of parameters.
+        \pause
+        \item The information required to run the $(k-1)$-FWL algorithm is encoded in the input to the network.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Proof Sketch}
+    \begin{itemize}
+        \item Given a graph $G = (V, E)$, we can represent it using a tensor $A \in \mathbb{R}^{n\times n}$ and a color matrix $C \in \mathbb{R}^{n\times e}$ (which is usually initialized uniformly).
+        \item These two matrices can be combined into a single tensor $X \in \mathbb{R}^{n\times n\times e}$.
+        \pause
+        \item The initial coloring of the $k$-tuples in the graph encapsulates the \textit{isomorphism type} of each $k$-tuple, as shown in the diagram for 2-FWL.
+        % add image initial_coloring.png
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{../figures/initial_coloring.png}
+        \end{center}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Proof Sketch}
+    \begin{itemize}
+        \item The coloring method can be encoded in a tensor $B \in \mathbb{R}^{n^k \times k^2 \times (e+2)}$.
+        \item The method is also equivariant, meaning changing the order of the nodes will change the coloring accordingly.
+        \item Hence, this can be encoded using a single equivariant linear layer.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Proof Sketch}
+    \begin{itemize}
+        \item Once we have the initial coloring encoded in the tensor $B$, we can simulate the $(k-1)$-FWL algorithm for every $k$-tuple (without proof).
+        \item If we believe the statement above, we can encode the $(k-1)$-FWL algorithm in an equivariant graph network, despite it being not very efficient.
+        \pause
+        \item The writers propose another, more simple GNN that can discriminate as well as $3$-WL and doesn't require extremely high dimensional tensors.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A Simpler 3-WL Network}
+    \begin{itemize}
+        {\small
+        \item Given an input tensor $X \in \mathbb{R}^{n\times n\times e}$, we can define $L(X) = \text{concat}(m_3(X), m_1(X) \cdot m_2(X))$. 
+        \item Here, $m_1, m_2, m_3$ are MLPs that are applied to each feature independently, $m_1, m_2: \mathbb{R}^e \rightarrow \mathbb{R}^b, m_3: \mathbb{R}^e \rightarrow \mathbb{R}^{b^\prime}$. The matrix multiplication is also applied to each feature matrix independently.
+        \begin{center}
+            \includegraphics[width=0.5\textwidth]{../figures/simple.png}
+        \end{center}
+        \item Matrix multiplication is equivariant to permutations, so the layer is equivariant.
+        \item We stack several layers of this type followed by an invariant layer to receive an invariant network.
+        }
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A Simpler 3-WL Network}
+    \begin{itemize}
+        \item To see why this is equivalent to the $3$-WL test, remember the following two graphs, and assume the only input is the adjacency matrix $A$ ($e=1$).
+        \begin{center}
+            \includegraphics[width=0.5\textwidth]{../figures/wl_equivalent.png}
+        \end{center}
+        \pause
+        \item The matrix multiplication in the model allows us to compute $A^3$. 
+        \item We can then apply the trace operation in the invariant linear layer to get $tr(A^3)$ which is the number of cycles of length $3$ in the graph. This will distinguish between the two graphs.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
