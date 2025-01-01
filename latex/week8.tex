@@ -525,40 +525,30 @@ currentsubsection
         \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
         %\pause
         \item Using this, the previous condition can be written as:
-        \[ L(P^T\otimes P^T)\text{vec}(A) = L\text{vec}(A) \]
+        \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = \mathbf{L}\text{vec}(A) \]
         %\pause
-        \item For this condition to hold for all $A$, we need $L$ to satisfy:
-        \[ L(P^T\otimes P^T) = L \]
+        \item For this condition to hold for all $A$, we need $\mathbf{L}$ to satisfy:
+        \[ \mathbf{L}(P^T\otimes P^T) = \mathbf{L} \]
         %\pause
-        \item transposing the equation, and with severe abuse of notation $(L^T = \text{vec(L)})$, we finally get:
-        \[ (P\otimes P)\text{vec}(L) = \text{vec}(L) \]
+        \item transposing the equation, and with severe abuse of notation $(\mathbf{L}^T = \text{vec}(\mathbf{L}))$, we finally get:
+        \[ (P\otimes P)\text{vec}(\mathbf{L}) = \text{vec}(\mathbf{L}) \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $L$.
+        \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $\mathbf{L}$.
         %\pause
-        \item Developing the condition for an equivariant layer $L \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
+        \item Developing the condition for an equivariant layer $\mathbf{L} \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
         %\pause
-        \[ L\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T L\text{vec}(A) \boldsymbol{P}\]
+        \[ \mathbf{L}\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T \mathbf{L}\text{vec}(A) \boldsymbol{P}\]
         %\pause
         \item Using the Kronecker product property, we get:
-        \[ L(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)L\text{vec}(A) \]
+        \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)\mathbf{L}\text{vec}(A) \]
         %\pause
         \item This should hold for every $A$, so we get:
-        \[ L(P^T\otimes P^T) = (P^T\otimes P^T)L \]
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Invariant and Equivariant Graph Networks}
-    \begin{itemize}
-        \setlength{\itemsep}{\fill}
-        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
-        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
-        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(A)\) to hold for any $A$.
-        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
+        \[ \mathbf{L}(P^T\otimes P^T) = (P^T\otimes P^T)\mathbf{L} \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -567,17 +557,32 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ permutation matrix, and its inverse is $(P\otimes P)$.
         %\pause
-        \[ (P\otimes P)L(P^T\otimes P^T) = L \]
+        \[ (P\otimes P)L(P^T\otimes P^T) = \mathbf{L} \]
         \item Once again using the Kronecker product property, we get:
-        \[ \text{vec}(L) = \text{vec}(P\otimes P)L(P^T\otimes P^T) = (P\otimes P) \otimes (P \otimes P) \text{vec}(L) \]
-        \[ = (P \otimes P \otimes P \otimes P) \text{vec}(L) \]
+        \[ \text{vec}(\mathbf{L}) = \text{vec}\left((P\otimes P)\mathbf{L}(P^T\otimes P^T)\right) = (P\otimes P) \otimes (P \otimes P) \text{vec}(\mathbf{L}) \]
+        \[ = (P \otimes P \otimes P \otimes P) \text{vec}(\mathbf{L}) \]
         %\pause
-        \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
-        \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
-        \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
-        \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
-        \item for equivariant layers $L \in \mathbb{R}^{n^k \times n^k}$:
-        \[ P^{\otimes 2k}L = \text{vec}(L) \]
+        % \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
+        % \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
+        % \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
+        
+        % \item for equivariant layers $L \in \mathbb{R}^{n^k \times n^k}$:
+        
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
+        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
+        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(\mathbf{A})\) to hold for any $A$.
+        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
+        \item We can extend the previous result to
+        \begin{enumerate}
+            \item For invariant layers: \[ P^{\otimes k}\text{vec}(\mathbf{L}) = \text{vec}(\mathbf{L}) \]
+            \item For equivariant layers: \[ P^{\otimes 2k}\text{vec}\mathbf{L} = \text{vec}(\mathbf{L}) \]
+        \end{enumerate}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
