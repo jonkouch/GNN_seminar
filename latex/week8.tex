@@ -196,7 +196,7 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
         %\pause
-        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is \textit{permutation equivariant} if $\pi f(x) = f(\pi x)$ for all $\pi \in H$.
+        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is $H$-\textit{equivariant} if $\pi f(x) = f(\pi x)$ for all $\pi \in H$.
     \end{itemize}
     \begin{center}
         %\pause
@@ -521,16 +521,6 @@ currentsubsection
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
-        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
-        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(A)\) to hold for any $A$.
-        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Invariant and Equivariant Graph Networks}
-    \begin{itemize}
-        \setlength{\itemsep}{\fill}
         \item We now introduce a crucial property of the Kronecker product:
         \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
         %\pause
@@ -559,6 +549,16 @@ currentsubsection
         %\pause
         \item This should hold for every $A$, so we get:
         \[ L(P^T\otimes P^T) = (P^T\otimes P^T)L \]
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{itemize}
+        \setlength{\itemsep}{\fill}
+        \item What if our adjacency matrix is actually a tensor $\mathbf{A} \in \mathbb{R}^{n^k}$?
+        \item Instead of looking at relationships between pairs of nodes, we now look at relationships between $k$-tuples of nodes.
+        \item We want to extend the previous condition \(\mathbf{L}\text{vec}(\boldsymbol{P} \circ \mathbf{A}) = \mathbf{L}\text{vec}(A)\) to hold for any $A$.
+        \item Note that the action of $\boldsymbol{P}$ on $\mathbf{A}$ is not necessarily $\boldsymbol{P}^T \mathbf{A} \boldsymbol{P}$ as this may not be defined over $k$-order tensors. 
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
