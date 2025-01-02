@@ -73,12 +73,12 @@ currentsubsection
 \begin{itemize}
     \setlength{\itemsep}{\fill}
     \item Our neural networks can operate on data of many types.
-    %\pause
+    \pause
     \item We often work with images, text, audio, graphs and more.
-    %\pause
+    \pause
     \item These data types have different structures and qualities, and we would like to build architectures that best suit them.
     \end{itemize}
-    %\pause
+    \pause
     \begin{center}
         \includegraphics[width=0.5\textwidth]{../figures/equivariance.png}
     \end{center}
@@ -100,7 +100,7 @@ currentsubsection
 
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        %\pause
+        \pause
         \item It is acceptable to assume that being invariant to the rotation of the cat is a good property for a classification network.
     \end{itemize}
 \end{frame}
@@ -132,7 +132,7 @@ currentsubsection
     When contructing an equivariant neural network, two things should always be considered:
     \begin{itemize} 
         \setlength{\itemsep}{\fill}
-            %\pause
+            \pause
         \item The symmetries of the data:
         \begin{itemize}
             \item What inherent structure should our model be oblivious to?
@@ -175,12 +175,12 @@ currentsubsection
 
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item Let $H \leq S_n$ be a subgroup of the symmetric group.
-        %\pause
-        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}$ is $H$-\textit{invariant} if $f(x) = f(\pi x)$ for all $\pi \in H$.
+        \item Consider the symmetric group $S_n$.
+        \pause
+        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^c$ is \textit{permutation invariant} if $f(x) = f(\pi x)$ for all $\pi \in S_n$.
     \end{itemize}
     \begin{center}
-        %\pause
+        \pause
         \includegraphics[width=0.65\textwidth]{../figures/perm_in.png}
     \end{center}
     
@@ -195,11 +195,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Let $H \leq S_n$ be a subgroup of the symmetric group.
-        %\pause
-        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is $H$-\textit{equivariant} if $\pi f(x) = f(\pi x)$ for all $\pi \in H$.
+        \pause
+        \item $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$ is \textit{permutation equivariant} if $\pi f(x) = f(\pi x)$ for all $\pi \in S_n$.
     \end{itemize}
     \begin{center}
-        %\pause
+        \pause
         \includegraphics[width=0.65\textwidth]{../figures/perm_eq.png}
     \end{center}
     
@@ -214,15 +214,15 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Assume our set is $X = \{x_1, x_2, \ldots, x_n\}$.
-        %\pause
+        \pause
         \item We can represent $X$ as a matrix $X \in \mathbb{R}^{n \times d}$.
-        %\pause
+        \pause
         \item Any permutation $g \in S_n$ can be represented as a permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$,
-        %\pause
+        \pause
         \item The action of $g$ on $X$ is then $\boldsymbol{P} X$.
-        %\pause
+        \pause
         \item An invariant neural network is a function $f: \mathbb{R}^{n \times d} \rightarrow \mathbb{R}^{d`}$ such that $f(X) = f(\boldsymbol{P}X)$.
-        %\pause
+        \pause
         \item An equivariant neural network is a function $f: \mathbb{R}^{n \times d} \rightarrow \mathbb{R}^{n \times d`}$ such that $\boldsymbol{P}f(X) = f(\boldsymbol{P}X)$.
     \end{itemize}
     
@@ -235,10 +235,10 @@ currentsubsection
 
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item Our data is now a graph adjacency matric $A \in \mathbb{R}^{n \times n}$. 
-        %\pause
+        \item Our data is now a graph adjacency matrix $A \in \mathbb{R}^{n \times n}$. 
+        \pause
         \item A permutation matrix $\boldsymbol{P} \in \mathbb{R}^{n \times n}$ acts on the adjacency matrix $A$.
-        %\pause
+        \pause
         \item The action of $\boldsymbol{P}$ on $A$ is:
         \[ \boldsymbol{P^T}A\boldsymbol{P} \]
     \end{itemize}
@@ -257,12 +257,12 @@ currentsubsection
     \begin{theorem}
         Let $L$ be a linear equivariant layer, and let $f$ be a neural network constructed be stacking $L$ and non-linearities $\sigma$. Then $f$ is permutation equivariant.
     \end{theorem}
-    %\pause
+    \pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        %\pause
+        \pause
         \[ f(gx) = L(\sigma(L(\sigma(\ldots L(gx) \ldots)))) = L(\sigma(L( \ldots g\sigma(L(x)) \ldots))) = \ldots \]
-        %\pause
+        \pause
         \[ g L(\sigma(L(\sigma(\ldots L(x) \ldots)))) = gf(x) \]
     \end{proof}
     
@@ -274,10 +274,10 @@ currentsubsection
     \begin{theorem}
         Let $f$ be an equvariant neural network and let $\phi$ be a permutation invariant function. Then $h = \phi(f(x))$ is a permutation invariant neural network.
     \end{theorem}
-    %\pause
+    \pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        %\pause
+        \pause
         \[ h(gx) = \phi(f(gx)) = \phi(gf(x)) = \phi(f(x)) = h(x) \]
     \end{proof}
 \end{frame}
@@ -292,11 +292,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item A seminal work in the field of equivariant neural networks. 
-        %\pause
+        \pause
         \item Recall the two properties we mentioned earlier (symmetries of the data and the space of functions learnable by the network).
-        %\pause
+        \pause
         \item \emph{DeepSets} is an architecture that is equivariant to set permutations and is maximally expressive in the space of permutation equivariant functions.
-        %\pause
+        \pause
         \item We are going to see the construction and prove it satisfies equivariance and expressiveness.
     \end{itemize}
     
@@ -310,11 +310,11 @@ currentsubsection
         \item To fill in the details, we need to define the equivariant layer $L$ and the invariant function $\phi$.
     \end{itemize}
 
-    %\pause
+    \pause
     \begin{definition}
         Consider a set $x = \{x_1, x_2, \ldots, x_n\}$, where $x_i \in \mathbb{R}$. Define its representation $\mathbf{x} = (x_1, \dots, x_n) \in \mathbb{R}^n$.\\
         A \emph{DeepSets} layer is defined as 
-        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\].
+        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \gamma\mathbf{1}\mathbf{x}\].
     \end{definition}
     
 \end{frame}
@@ -324,29 +324,28 @@ currentsubsection
     \begin{definition}
         Consider a set $x = \{x_1, x_2, \ldots, x_n\}$, where $x_i \in \mathbb{R}$.\\
         A \emph{DeepSets} layer is defined as 
-        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\].
+        \[L(x) = \lambda\mathrm{I}\mathbf{x} + \gamma\mathbf{1}\mathbf{x}\].
     \end{definition}
 
-    %\pause
+    \pause
     \begin{theorem}
         A \emph{DeepSets} layer is permutation equivariant.
     \end{theorem}
 
-    %\pause
+    \pause
     \begin{proof}
         Let $x$ be a set of $n$ elements, and let $g \in S_n$ be a permutation.
-        %\pause
-        \[ L(gx) = \lambda\mathrm{I}(gx) + (gx)\mathbf{1} = g(\lambda\mathrm{I}x) + x\mathbf{1} = gL(x)\]
+        \pause
+        \[ L(gx) = \lambda\mathrm{I}(gx) + \gamma\mathbf{1}(gx) = g(\lambda\mathrm{I}x) + \gamma\mathbf{1}x = gL(x)\]
     \end{proof}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\emph{DeepSets} Layer}
-    %\pause
     \begin{theorem}
-        Any linear equivariant layer is of the shape \(L(x) = \lambda\mathrm{I}\mathbf{x} + \mathbf{x}\mathbf{1}\).
+        Any linear equivariant layer is of the shape \(L(x) = \lambda\mathrm{I}\mathbf{x} + \gamma\mathbf{1}\mathbf{x}\).
     \end{theorem}
 
-    %\pause
+    \pause
     \renewcommand{\qedsymbol}{}
     \begin{proof}[Proof (through example)]
         Let $\mathbf{x}=\{x_1,x_2,x_3\}$ be a set, $W \in \mathbb{R}^{3 \times 3}$, and $L(x) = W\mathbf{x}$ such that $L$ is equivariant, W = $\begin{pmatrix}
@@ -354,7 +353,7 @@ currentsubsection
             d & e & f\\
             g & h & i
         \end{pmatrix}$.\\
-        %\pause
+        \pause
         Consider permutation $g=(2,3) \in S_3$. Note that $g\left(W\begin{pmatrix}
             x_1\\
             x_2\\
@@ -375,7 +374,7 @@ currentsubsection
         The previous equation can be written as:
         \[ax_1 + bx_2 + cx_3 = ax_1 + bx_3 + cx_2\]
         This should hold for any choice of $\mathbf{x}$ $\Rightarrow b = c$, $d=f, g=h$. \\
-        %\pause
+        \pause
         For the permutation $\sigma = (1,3,2)$:  
         
         \[W(\sigma x) = W \begin{pmatrix}
@@ -430,10 +429,10 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We have an initial layer $L$, which we proved is equivariant.
-        %\pause
+        \pause
         \item A deep sets invariant network is now constructed as:\\
         \[f(x) = \phi(L\sigma(L\sigma(\ldots L\sigma(L(x)) \ldots))) \quad \text{where} \quad \phi(x) = \sum_{i=1}^{n}x_i \]
-        %\pause
+        \pause
         \item It is easy to see that $\phi$ is permutation invariant, and thus $f$ is permutation invariant.
         \item For a classification network, take some classification module $\rho$ (e.g. an MLP), and define the final network as:
         \[ h(x) = \rho(f(x)) \]  
@@ -454,13 +453,13 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We have shown that the \emph{DeepSets} network is permutation invariant.
-        %\pause
+        \pause
         \item We now want to show that it is maximally expressive in the space of permutation invariant functions.
-        %\pause
+        \pause
         \item We show outline for the proof, showing \emph{DeepSets} can separate any two sets that are not equal.
 
     \end{itemize}
-    %\pause
+    \pause
     \begin{theorem}
         Let $x,y \in \mathbb{R}^{n \times d} \quad$ s.t $\quad x \neq gy \quad \forall g \in S_n$. Then there exists a \emph{DeepSets} network that separates $x$ and $y$, namely $F(x ; \theta) \neq F(y ; \theta)$. 
     \end{theorem}
@@ -473,16 +472,16 @@ currentsubsection
     Proof outline:
     \begin{enumerate}
         \setlength{\itemsep}{\fill}
-        %\pause
+        \pause
         \item Consider distinct rows of $x, y$.
-        %\pause
+        \pause
         \item Construct input output pairs using standard basis elements (one hot encodings of the elements in the set).
         \item In each layer $L(x) = \mathbf{X}W_1 + \mathbf{1}\mathbf{1}^T\mathbf{X}W_2$, set $W_2 = 0$, collapsing our network to a standard MLP.
-        %\pause
+        \pause
         \item According to a result of the universal approximation theorem, we can learn a one to one mapping between the input and output pairs.
-        %\pause
+        \pause
         \item Output for each set the sum of the output pairs.
-        %\pause
+        \pause
         \item For each set, we computed the  hitogram of its elements, which is a unique representation of the set.
     \end{enumerate}
 
@@ -494,10 +493,32 @@ currentsubsection
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{center}
+        \begin{minipage}[t]{0.45\textwidth}
+            \raggedright % Ensures the content aligns to the left
+            \vspace{0pt} % Forces top alignment
+            \includegraphics[width=\textwidth]{../figures/1-tensor-inv.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.45\textwidth}
+            \raggedright % Ensures the content aligns to the left
+            \vspace{0pt} % Forces top alignment
+            \includegraphics[width=\textwidth]{../figures/1-tensor-eq.png}
+        \end{minipage}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{../figures/2-tensor-eq.png}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We saw a simple, maximally expressive equivariant network for sets.
-        %\pause
+        \pause
         \item We now want to extend this to graphs.
     \end{itemize}
 \end{frame}
@@ -507,14 +528,14 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item Recall the action of the permutation matrix $\boldsymbol{P}$ on the adjacency matrix $A$ is:
         \[\boldsymbol{P^T}A\boldsymbol{P}\]
-        %\pause
+        \pause
         \item Let's use this to define a linear invariant layer $L \in \text{Hom}(\mathbb{R}^{n\times n}, \mathbb{R})$. We want to satisfy the following:
         \[ L(\boldsymbol{P^T}A\boldsymbol{P}) = L(A) \]
         \item It's hard from this to understand the conditions on $L$. 
         \pause
         \item We define an equivalent condition by column stacking the adjacency matrix to get a vector, and then looking at $L$'s matrix representation: $\mathbf{L} \in \mathbb{R}^{1 \times n^2}$.
         \[ \mathbf{L}\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) = \mathbf{L}\text{vec}(A) \]
-        %\pause
+        \pause
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -522,14 +543,14 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We now introduce a crucial property of the Kronecker product:
-        \[ \text{vec}(XAY)= Y^T\otimes X\text{vec}(A)\]
-        %\pause
+        \[ \text{vec}(XAY)= (Y^T\otimes X)\text{vec}(A)\]
+        \pause
         \item Using this, the previous condition can be written as:
         \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = \mathbf{L}\text{vec}(A) \]
-        %\pause
+        \pause
         \item For this condition to hold for all $A$, we need $\mathbf{L}$ to satisfy:
         \[ \mathbf{L}(P^T\otimes P^T) = \mathbf{L} \]
-        %\pause
+        \pause
         \item transposing the equation, and with severe abuse of notation $(\mathbf{L}^T = \text{vec}(\mathbf{L}))$, we finally get:
         \[ (P\otimes P)\text{vec}(\mathbf{L}) = \text{vec}(\mathbf{L}) \]
     \end{itemize}
@@ -539,14 +560,14 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item After some work and moderate logic jumps, we got a condition for a permutation invariant linear layer $\mathbf{L}$.
-        %\pause
+        \pause
         \item Developing the condition for an equivariant layer $\mathbf{L} \in \mathbb{R}^{n^2 \times n^2}$ is very similar:
-        %\pause
+        \pause
         \[ \mathbf{L}\text{vec}(\boldsymbol{P}^T A\boldsymbol{P}) =\boldsymbol{P}^T \mathbf{L}\text{vec}(A) \boldsymbol{P}\]
-        %\pause
+        \pause
         \item Using the Kronecker product property, we get:
         \[ \mathbf{L}(P^T\otimes P^T)\text{vec}(A) = (P^T\otimes P^T)\mathbf{L}\text{vec}(A) \]
-        %\pause
+        \pause
         \item This should hold for every $A$, so we get:
         \[ \mathbf{L}(P^T\otimes P^T) = (P^T\otimes P^T)\mathbf{L} \]
     \end{itemize}
@@ -556,12 +577,12 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item $(P^T\otimes P^T)$ is an $n^2 \times n^2$ permutation matrix, and its inverse is $(P\otimes P)$.
-        %\pause
+        \pause
         \[ (P\otimes P)L(P^T\otimes P^T) = \mathbf{L} \]
         \item Once again using the Kronecker product property, we get:
         \[ \text{vec}(\mathbf{L}) = \text{vec}\left((P\otimes P)\mathbf{L}(P^T\otimes P^T)\right) = (P\otimes P) \otimes (P \otimes P) \text{vec}(\mathbf{L}) \]
         \[ = (P \otimes P \otimes P \otimes P) \text{vec}(\mathbf{L}) \]
-        %\pause
+        \pause
         % \item The previous conditions are developed for a matrix $A \in \mathbb{R}^{n^2}$ expressing the relations between pairs of nodes.
         % \item We can extend this to a matrix $A \in \mathbb{R}^{n^k}$ expressing the relations between every $k$ tuple of nodes.
         % \item for invariant layers $L \in \mathbb{R}^{1 \times n^k}$:
@@ -590,11 +611,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We developed conditions for a permutation invariant and equivariant linear layer $L$. Call these the Fixed Point Equations.
-        %\pause
+        \pause
         \item Unfortunately, compared to the simple structure of the \emph{DeepSets} layer, these equations are less interpretable. Let's try and make some sense of them.
-        %\pause
+        \pause
         \item The condition we got is one that determines the values of the entries of $L$. We want to understand what entries of $L$ should be equal.
-        %\pause
+        \pause
         \item For an invariant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$.
     \end{itemize}
 \end{frame}
@@ -604,47 +625,49 @@ currentsubsection
         \setlength{\itemsep}{\fill}
         \item The Fixed Point Equation for an invariant layer is:
         \[ P^{\otimes k}\text{vec}(L) = \text{vec}(L) \]
-        %\pause
+        \pause
         \item The k-th permutation matrix permutes the k-th dimension of the input. 
-        \[ P^{\otimes k}\text{vec}(L)_{i_1, \ldots i_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k} \]
-        %\pause
+        \[ P^{\otimes k}\text{vec}(L)_{i_1, \ldots i_k} = \text{vec}(L)_{\sigma(i_1), \ldots \sigma(i_k)} \]
+        \pause
         \item This partitions the entries of $L$ into equivalence classes, where all entries in the same class are equal.
-        %\pause
-        \item For $k=2$ we get 2 equivalence classes:
+        \pause
+        \item For $2k=2$ we get 2 equivalence classes:
         \[ L_{i,j} \quad \text{where} \quad i \neq j \quad \text{and} \quad L_{i,i} \]
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Invariant and Equivariant Graph Networks}
-    \begin{itemize}
-        \setlength{\itemsep}{\fill}
-        \item For an equivariant layer $L \in \mathbb{R}^{1 \times n^k}$, $L_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$ 
-        and sends it to entry ${j_1,j_2,\ldots,j_k}$ of the output.
-        %\pause
-        \item The Fixed Point Equation for an equivariant layer is:
-        \[ P^{\otimes 2k}\text{vec}(L) = \text{vec}(L) \]
-        %\pause
-        \item The k-th permutation matrix permutes the k-th dimension of the input. 
-        \[ P^{\otimes 2k}\text{vec}(L)_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k} = \text{vec}(L)_{\sigma(i)_1, \ldots \sigma(i)_k, \sigma(j)_1, \ldots \sigma(j)_k} \]
-        %\pause
-        \item Once again, this partitions the entries of $L$ into equivalence classes.
-        %\pause
-        \item For $k=2$ we get 15 equivalence classes:
-        \[ \{\{1\} \{2\} \{3\} \{4\}\}, \{\{1, 2\} \{3\} \{4\}\}, \{\{1\} \{2, 3\} \{4\}\} \ldots \{\{1, 2, 3, 4\}\}\]
-        %\pause
-        In general, the number of equivalence classes is $Bell(2k)$ for an (equivariant) invariant layer of order $k$
-    \end{itemize}
+    \small{
+        \begin{itemize}
+            \setlength{\itemsep}{\fill}
+            \item For an equivariant layer $L \in \mathbb{R}^{n^k \times n^k}$, $L_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k}$ is the weight which multiplies entry $A_{i_1,i_2,\ldots,i_k}$ 
+            and sends it to entry ${j_1,j_2,\ldots,j_k}$ of the output.
+            \pause
+            \item The Fixed Point Equation for an equivariant layer is:
+            \[ P^{\otimes 2k}\text{vec}(L) = \text{vec}(L) \]
+            \pause
+            \item The k-th permutation matrix permutes the k-th dimension of the input. 
+            \[ P^{\otimes 2k}\text{vec}(L)_{i_1,i_2,\ldots,i_k, j_1, j_2,\ldots,j_k} = \text{vec}(L)_{\sigma(i_1), \ldots \sigma(i_k), \sigma(j_1), \ldots \sigma(j_k)} \]
+            \pause
+            \item Once again, this partitions the entries of $L$ into equivalence classes.
+            \pause
+            \item For $k=2$ we get 15 equivalence classes:
+            \[ \{\{1\} \{2\} \{3\} \{4\}\}, \{\{1, 2\} \{3\} \{4\}\}, \{\{1\} \{2, 3\} \{4\}\} \ldots \{\{1, 2, 3, 4\}\}\]
+            \pause
+            In general, the number of equivalence classes is $Bell(2k)$ for an (equivariant) invariant layer of order $k$
+        \end{itemize}
+    }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Invariant and Equivariant Graph Networks}
     \begin{itemize}
         \setlength{\itemsep}{\fill}
-        \item Did you notice somthing similar to the \emph{DeepSets} layer?
-        %\pause
-        \item The construction of the \emph{DeepSets} layer is identicle to the construction of an equivariant layer of order 1.
-        %\pause
+        \item Did you notice something similar to the \emph{DeepSets} layer?
+        \pause
+        \item The construction of the \emph{DeepSets} layer is identical to the construction of an equivariant layer of order 1.
+        \pause
         \item We managed to generalize the equivariant layer to higher orders of node connectivity.
-        %\pause
+        \pause
         \item We also managed to generalize the invariant layer to higher orders of node connectivity.
     \end{itemize}
 \end{frame}
@@ -675,7 +698,7 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Let's extend the construction of the equivariant layer even further, changing between the connectivity order, adding node features, and a bias term.
-        %\pause
+        \pause
         \item We skip a few steps, but it makes sense that the bias term should satisfy the same fixed point equation as the linear term.
         \[ \mathbf{P}^{T \otimes k} \text{vec}(\mathbf{C}) = \text{vec}(\mathbf{C}) \]
         The main idea is that every pair of k-hyperedges which permute under some permutation should have the same bias term.
@@ -686,14 +709,14 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We can also consider node features.
-        %\pause
+        \pause
         \item The input to the layer now includes a set of $n$ $d$-dimensional vectors.
-        %\pause
+        \pause
         \item This is exactly the input to the \emph{DeepSets} layer, we already know how to construct an equivariant layer for this input.
-        %\pause
+        \pause
         \item The input to our layer is now the k-connectivity of each node, concatenated with it's feature:
         \[ A \in \mathbb{R}^{n^k \times d} \]
-        %\pause
+        \pause
         \item The new general formulation, changing both the connectivity order and the feature dimensionality, is:
         \[ L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^{k'} \times d'} \]
     \end{itemize}
@@ -703,7 +726,7 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item We intoduce some new notation, please bare with us as we will use some Nifnufey Yadaim.
-        %\pause
+        \pause
         \item We saw certain entries of the layer matrix $L$ are equal.
         In \emph{DeepSets} our connectivity is of order 1, so we got 2 equivalence classes.
         In the standard graph case, our connectivity is of order 2, so we got 15 equivalence classes.
@@ -715,11 +738,11 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Let $\mu$ be some equivalence class of indices. We denote by $\mathbf{M}^\mathbf{\mu}$ the binary tensor which is 1 at the indices in $\mathbf{\mu}$ and 0 elsewhere.
-        %\pause
+        \pause
         \item Denote by $\mathbf{B}^\mathbf{\mu}, \mathbf{C}^\mathbf{\mu}$ the linear layer and bias term of the layer, respectively. 
-        %\pause
+        \pause
         \item For an invariant layer $L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^1 \times d'}$, this defines a set of $dd'Bell(k) + d'$ binary tensors.
-        %\pause
+        \pause
         \item For an equivariant layer $L: \mathbb{R}^{n^k \times d} \rightarrow \mathbb{R}^{n^{k'} \times d'}$, this defines a set of $dd'Bell(k+k') + d'Bell(k')$ binary tensors.
     \end{itemize}
 \end{frame}
@@ -738,7 +761,7 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item Turns out the set of these binary tensors $\mathbf{B}^\mathbf{\mu}$ is an orthogonal basis for the space of equivariant linear layers $L: \mathbb{R}^{n^k} \rightarrow \mathbb{R}^{n^{k'}}$
-        %\pause
+        \pause
         \item We won't show this, but we can prove the space of invariant/equivariant layers is of dimension $Bell(k')/Bell(k + k')$.
         \item The proof idea is showing the set of linear transformations is orthogonal and of the same dimension as the space of functions, making it a full basis.
     \end{itemize}
@@ -748,12 +771,12 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}
         \item To recap what we saw so far:
-        %\pause
+        \pause
         \item We saw the full construction linear layers which operate on graphs of a general degree of connectivity.
-        %\pause
+        \pause
         \item Our construction supports changing between different levels of connectivity, adding node features and changing between the dimension of these features.
-        %\pause
-        \item The construction is also extreamly efficient. It is linear in the number of dimensions and does no depend on the number of nodes, only on the connectivity order.
+        \pause
+        \item The construction is also extremely efficient. It is linear in the number of dimensions and does no depend on the number of nodes, only on the connectivity order.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -761,7 +784,7 @@ currentsubsection
     \begin{itemize}
         \setlength{\itemsep}{\fill}    
         \item We now need to prove the two properties of the network: equivariance and expressiveness.
-        %\pause
+        \pause
         \item Wait a minute, do we really need to prove these properties?
         
     \end{itemize}
@@ -796,14 +819,14 @@ currentsubsection
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Expressive Power of Equivariant Networks}
     \begin{itemize}
-        \item In Maron et al. (2019), the authors show that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test.
+        \item Provably Powerful Graph Networks (PPGN) shows that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test.
         \item The model proposed is much more efficient than $k$-GNNs which are also equivalent to the $k$-WL test.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Expressive Power of Equivariant Networks}
     \begin{itemize}
-        \item The proof that the $k$-order equivariant network is able to distinguish between non-isomorphic graphs just as well as the $k$-WL test is quite complex.
+        \item Proving a k-order PPGN is equivalent to the $k-WL$ test is quite complex, we will give intuition to this result.
         \pause
         \item In general, we can "simulate" the $(k-1)$-FWL algorithm using a $k$-order equivariant network if we have a sufficient number of parameters.
         \pause
@@ -813,8 +836,8 @@ currentsubsection
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Proof Sketch}
     \begin{itemize}
-        \item Given a graph $G = (V, E)$, we can represent it using a tensor $A \in \mathbb{R}^{n\times n}$ and a color matrix $C \in \mathbb{R}^{n\times e}$ (which is usually initialized uniformly).
-        \item These two matrices can be combined into a single tensor $X \in \mathbb{R}^{n\times n\times e}$.
+        \item Given a graph $G = (V, E)$, we can represent it using a tensor $A \in \mathbb{R}^{n\times n}$ and a color matrix $C \in \mathbb{R}^{n^2\times e}$.
+        \item These two matrices can be combined into a single tensor $X \in \mathbb{R}^{n\times n\times (e+1)}$.
         \pause
         \item The initial coloring of the $k$-tuples in the graph encapsulates the \textit{isomorphism type} of each $k$-tuple, as shown in the diagram for 2-FWL.
         % add image initial_coloring.png
@@ -837,7 +860,7 @@ currentsubsection
         \item Once we have the initial coloring encoded in the tensor $B$, we can simulate the $(k-1)$-FWL algorithm for every $k$-tuple (without proof).
         \item If we believe the statement above, we can encode the $(k-1)$-FWL algorithm in an equivariant graph network, despite it being not very efficient.
         \pause
-        \item The writers propose another, more simple GNN that can discriminate as well as $3$-WL and doesn't require extremely high dimensional tensors.
+        \item The paper proposes another, more simple GNN that can discriminate as well as $3$-WL and doesn't require extremely high dimensional tensors.
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
